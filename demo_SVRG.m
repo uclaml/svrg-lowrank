@@ -27,7 +27,6 @@ m=n;                            %inner iteration number
 omega=randombatch(supp,n);      %observation support of each component
 eta1 = 0.3;                      %stepsize
 [X_hat_svrg,dist_svrg,iter_num] = MC_SVRG(X,X_star,supp,omega,S,m,eta1,p,r,mu);
-hold on
 plot(iter_num,dist_svrg,'LineWidth',1.5);
 xlabel('Number of iterations','FontSize', 12);
 ylabel('Frobenius norm error','FontSize', 12);
