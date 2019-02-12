@@ -25,7 +25,7 @@ n=5;                            %number of components
 S=40;                           %outer iteration number
 m=n;                            %inner iteration number
 omega=randombatch(supp,n);      %observation support of each component
-eta1 = 0.25;                    %stepsize
+eta1 = 0.3;                      %stepsize
 [X_hat_svrg,dist_svrg,iter_num] = MC_SVRG(X,X_star,supp,omega,S,m,eta1,p,r,mu);
 plot(iter_num,dist_svrg,'LineWidth',1.5);
 xlabel('Number of iterations','FontSize', 12);
