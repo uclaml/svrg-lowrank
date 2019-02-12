@@ -7,9 +7,10 @@ clc
 clear 
 close all
 % Generate data first
+disp('Generating the data...');
 d1 = 10000;
 d2 = 10000;
-r = 100;
+r = 10;
 % Generate the low rank matrix 
 X_star = data_generation_mc(d1,d2,r);
 X_star_fro = norm(X_star,'fro');
@@ -21,6 +22,7 @@ save(['./Data/data_d1_' num2str(d1) '_d2_' num2str(d2) '_r_' num2str(r) '_p_' nu
 % Save the observed suppot
 save(['./Data/support_d1_' num2str(d1) '_d2_' num2str(d2) '_r_' num2str(r) '_p_' num2str(p) '.mat'],'supp');
 %load data and support
+disp('Loading the data...')
 d1=10000;
 d2=10000;
 r=100;
@@ -29,8 +31,8 @@ p=0.2;
 load(['./Data/data_d1_' num2str(d1) '_d2_' num2str(d2) '_r_' num2str(r) '_p_' num2str(p) '.mat']);
 %load support
 load(['./Data/support_d1_' num2str(d1) '_d2_' num2str(d2) '_r_' num2str(r) '_p_' num2str(p) '.mat']);
-% % Calculate the incoherence and spectral norm of X^*
-% [mu,sigma1,kappa] = calc_para(X_star,r);
+% Calculate the incoherence and spectral norm of X^*
+[mu,sigma1,kappa] = calc_para(X_star,r);
 %set Obervation matrix
 X=X_star.*supp;
 N=sum(sum(supp~=0));
@@ -40,7 +42,7 @@ S=10;                           %outer iteration number
 m=n;                            %inner iteration number
 omega=randombatch(supp,n);      %observation support of each component
 eta1 = 0.25;                    %stepsize
-mu=1.625;                       %incoherence of X^*
+disp('Solving by SVRG...')
 [X_hat_svrg,dist_svrg,iter_num] = MC_SVRG(X,X_star,supp,omega,S,m,eta1,p,r,mu);
 hold on
 plot(iter_num,dist_svrg,'LineWidth',1.5);

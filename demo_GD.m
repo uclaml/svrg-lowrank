@@ -7,6 +7,7 @@ clc
 clear 
 close all
 % Generate data first
+disp('Generating the data...');
 d1 = 10000;
 d2 = 10000;
 r = 100;
@@ -22,6 +23,7 @@ save(['./Data/data_d1_' num2str(d1) '_d2_' num2str(d2) '_r_' num2str(r) '_p_' nu
 save(['./Data/support_d1_' num2str(d1) '_d2_' num2str(d2) '_r_' num2str(r) '_p_' num2str(p) '.mat'],'supp');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %load data and support
+disp('Loading the data...')
 d1=10000;
 d2=10000;
 r=100;
@@ -30,16 +32,16 @@ p=0.2;
 load(['./Data/data_d1_' num2str(d1) '_d2_' num2str(d2) '_r_' num2str(r) '_p_' num2str(p) '.mat']);
 %load support
 load(['./Data/support_d1_' num2str(d1) '_d2_' num2str(d2) '_r_' num2str(r) '_p_' num2str(p) '.mat']);
-% %Calculate the incoherence and spectral norm of X^*
-% [mu,sigma1,kappa] = calc_para(X_star,r);
+%Calculate the incoherence and spectral norm of X^*
+[mu,sigma1,kappa] = calc_para(X_star,r);
 %set Obervation matrix
 X=X_star.*supp;
 N=sum(sum(supp~=0));
 %%parameters
 T=20;                           %number of iterations
 eta1 = 0.3;                     %stepsize   
-mu=1.625;                       %incoherence of X^*
 % matrix completion using GD
+disp('Solving by GD...')
 [X_hat_GD,dist_GD] = MC_GD(X,X_star,supp,eta1,p,r,mu,T);
 plot(1:T,dist_GD,'LineWidth',1.5,'color',[0,0,1]);
 xlabel('Number of iterations','FontSize', 12);
