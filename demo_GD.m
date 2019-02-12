@@ -6,6 +6,21 @@
 clc
 clear 
 close all
+% Generate data first
+d1 = 10000;
+d2 = 10000;
+r = 100;
+% Generate the low rank matrix 
+X_star = data_generation_mc(d1,d2,r);
+X_star_fro = norm(X_star,'fro');
+%get oberved matrix
+p = 0.2; 
+supp = double(rand(d1,d2) <= p);   
+% Save the generated matrices
+save(['./Data/data_d1_' num2str(d1) '_d2_' num2str(d2) '_r_' num2str(r) '_p_' num2str(p) '.mat'],'X_star');
+% Save the observed suppot
+save(['./Data/support_d1_' num2str(d1) '_d2_' num2str(d2) '_r_' num2str(r) '_p_' num2str(p) '.mat'],'supp');
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %load data and support
 d1=10000;
 d2=10000;
