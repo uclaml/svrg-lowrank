@@ -10,7 +10,7 @@ close all
 disp('Generating the data...');
 d1 = 10000;
 d2 = 10000;
-r = 10;
+r = 100;
 % Generate the low rank matrix 
 X_star = data_generation_mc(d1,d2,r);
 X_star_fro = norm(X_star,'fro');
