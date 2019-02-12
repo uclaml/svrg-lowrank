@@ -1,28 +1,29 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % This code is a demo for matrix completion using gradient descent
-% algorithm on synthetic data with dimensions d_1=d_2=1000
-% rank r=30 and sampling rate p=0.2
+% algorithm on synthetic data with dimensions d_1=d_2=10000
+% rank r=100 and sampling rate p=0.2
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clc
 clear 
 close all
 %load data and support
-d1=1000;
-d2=1000;
-r=30;
+d1=10000;
+d2=10000;
+r=100;
 p=0.2;
 %load data
 load(['./Data/data_d1_' num2str(d1) '_d2_' num2str(d2) '_r_' num2str(r) '_p_' num2str(p) '.mat']);
 %load support
 load(['./Data/support_d1_' num2str(d1) '_d2_' num2str(d2) '_r_' num2str(r) '_p_' num2str(p) '.mat']);
-% Calculate the incoherence and spectral norm of X^*
-[mu,sigma1,kappa] = calc_para(X_star,r);
+% %Calculate the incoherence and spectral norm of X^*
+% [mu,sigma1,kappa] = calc_para(X_star,r);
 %set Obervation matrix
 X=X_star.*supp;
 N=sum(sum(supp~=0));
 %%parameters
-T=100;                          %number of iterations
-eta1 = 0.3;                     %stepsize                           
+T=20;                           %number of iterations
+eta1 = 0.3;                     %stepsize   
+mu=1.625;                       %incoherence of X^*
 % matrix completion using GD
 [X_hat_GD,dist_GD] = MC_GD(X,X_star,supp,eta1,p,r,mu,T);
 plot(1:T,dist_GD,'LineWidth',1.5,'color',[0,0,1]);
